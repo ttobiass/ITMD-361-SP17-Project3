@@ -47,6 +47,11 @@ footer
 	text-align: center;
 }
 
+strong
+{
+	font-weight: 800;
+}
+
 /* Navigation Specific Styling */
 .nav
 {
