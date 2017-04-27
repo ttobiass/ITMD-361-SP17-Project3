@@ -98,15 +98,68 @@
 			<iframe width="400" height="315" src="https://www.youtube.com/embed/gQLqIMiIuwY" allowfullscreen></iframe>
 			</div>
 			
-			<p>
-				Below is a map with pins for all of the locations that each festival I have been to! 
-				Click a pin to be taken to that festivals website, and maybe I will see you there this year!
+			<p> 
+				Below is a map with the locations of all of the festivals I have been to. 
+				Click on a pin to be taken to that festivals website, and maybe I will see 
+				you at a festival soon! 
 			</p>
-
-			<div id='map'></div>
+			
+			<div id="map">
+			</div>
 			
 			<script>
+				var festMap;
+				var locations = [
+					['Spring Awakning 2015', 41.8623, -87.6167, 8, 'http://www.springawakeningfestival.com/'],
+					['Spring Awakning 2016', 41.8639562, -87.663828, 7, 'http://www.springawakeningfestival.com/'],
+					['Mamby on the Beach 2015', 41.8213075, -87.5957798, 6, 'http://www.mambybeach.com/'],
+					['EDC: Las Vegas 2016', 36.2714346, -115.0100508, 5, 'http://lasvegas.electricdaisycarnival.com/'],
+					['Summer Set 2015', 45.1283916, -92.6855437, 4, 'http://www.summersetfestival.com/'],
+					['Freaky Deaky 2015', 41.7646473, -87.8049538, 3, 'http://www.freakydeakyhalloween.com/'],
+					['North Coast 2016', 41.885096, -87.6658355, 2, 'http://www.northcoastfestival.com/'],
+					['BassCenter 2016', 39.805687, -104.891812, 1, 'http://www.bassnectar.net/2017/03/bass-center-x/']
+					
+				];
+				function initMap() {
+					festMap = new google.maps.Map(document.getElementById('map'), {
+						center: new google.maps.LatLng(37.719139,-99.268851), 
+						zoom: 4
+					});
 				
+					var infowindow = new google.maps.InfoWindow();
+					var image = 'Media/map-pin.png';
+					var pin , i;
+					
+					for(i=0; i<locations.length; i++){
+						pin = new google.maps.Marker({
+							position: new google.maps.LatLng(locations[i][1], locations[i][2]), 
+							map: festMap,  
+							icon: {
+								size: new google.maps.Size(30, 47),
+								scaledSize: new google.maps.Size(30, 47),
+								url: "Media/map-pin.png"
+							},  
+							title: locations[i][0],
+							url: locations[i][4]
+						});
+						
+						google.maps.event.addListener(pin,'click', function() {
+							window.location.href = this.url;
+						});
+					
+						
+						google.maps.event.addListener(pin, 'mouseover', (function(pin, i) {
+							return function() {
+							  infowindow.setContent(locations[i][0]);
+							  infowindow.open(festMap, pin);
+							}
+						})(pin, i));
+						
+						google.maps.event.addListener(pin,'mouseout', function() {
+							infowindow.close();
+						});
+					}
+				}
 			</script>
 		</main>
 		
