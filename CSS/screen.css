@@ -148,6 +148,15 @@ ul li
 	font-family: 'Calligraffitti', cursive;
 }
 
+#map 
+{
+	height: 500px;
+	width: 700px;
+	background-color: #ccc;
+	text-align: center;
+	margin: 0 auto 0 auto;
+}
+
 /* Resume Specific */
 .resume
 {
